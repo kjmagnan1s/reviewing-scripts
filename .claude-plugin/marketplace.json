@@ -1,0 +1,20 @@
+{
+  "name": "reviewing-scripts",
+  "owner": {
+    "name": "Kevin Magnan",
+    "url": "https://github.com/kjmagnan1s"
+  },
+  "metadata": {
+    "description": "Review video scripts in a local browser page and send line-by-line notes to your agent."
+  },
+  "plugins": [
+    {
+      "name": "reviewing-scripts",
+      "source": "./",
+      "description": "Review video scripts in the browser: comment on lines, edit them, and send the notes back to your agent.",
+      "version": "0.1.0",
+      "category": "productivity",
+      "homepage": "https://github.com/kjmagnan1s/reviewing-scripts"
+    }
+  ]
+}

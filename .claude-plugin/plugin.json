@@ -1,0 +1,13 @@
+{
+  "name": "reviewing-scripts",
+  "version": "0.1.0",
+  "description": "Review video scripts in the browser: comment on lines, edit them, and send the notes back to your agent. Scripts stay as markdown files on your computer.",
+  "license": "MIT",
+  "author": {
+    "name": "Kevin Magnan",
+    "url": "https://github.com/kjmagnan1s"
+  },
+  "homepage": "https://github.com/kjmagnan1s/reviewing-scripts",
+  "repository": "https://github.com/kjmagnan1s/reviewing-scripts",
+  "keywords": ["claude-code", "plugin", "skill", "scripts", "review", "teleprompter"]
+}
