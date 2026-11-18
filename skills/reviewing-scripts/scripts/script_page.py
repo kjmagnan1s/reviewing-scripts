@@ -539,44 +539,52 @@ def tailscale_name():
 CSS = """
 :root {
   color-scheme: light dark;
-  --canvas: light-dark(#f4f2ec, #151412); --rail: light-dark(#fbfaf7, #1d1c19); --card: light-dark(#ffffff, #262420);
-  --card-border: light-dark(#e3e0d8, #34322d); --hair: light-dark(#e0ddd5, #2f2d29); --strong-border: light-dark(#cfcbc0, #45423b);
-  --txt: light-dark(#26241e, #eae7e0); --strong-txt: light-dark(#15140f, #f7f4ed); --mute: light-dark(#6a665d, #a39d91);
-  --soft: light-dark(#ebe8e0, #2a2824); --input-bg: light-dark(#fdfcfa, #1a1916); --focus: light-dark(#26241e, #eae7e0);
-  --danger: light-dark(#a83527, #e08273); --btn-bg: light-dark(#15140f, #f7f4ed); --btn-fg: light-dark(#fbfaf7, #15140f);
-  --pin: light-dark(#8a6400, #e6ae0a); --mark: light-dark(#ffe59a, #5c4a0e); --edit: light-dark(#256b43, #86cfa2);
-  --new: light-dark(#245f9e, #86b8ea); --target: 30px;
-  --lift: 0 10px 28px -18px rgb(0 0 0 / .55);
-  scrollbar-color: var(--strong-border) transparent; accent-color: var(--pin);
+  --canvas: light-dark(#f5f4f0, #0f1016); --rail: light-dark(#fbfaf8, #14151d); --card: light-dark(#ffffff, #1a1c26);
+  --card-border: light-dark(#e2e0da, #272a38); --hair: light-dark(#dedcd5, #232633); --strong-border: light-dark(#c9c6bd, #3a3e52);
+  --txt: light-dark(#23242b, #dfe2ee); --strong-txt: light-dark(#101116, #f6f7fc); --mute: light-dark(#5c6070, #979db3);
+  --soft: light-dark(#eceae4, #1d1f2a); --input-bg: light-dark(#fdfdfb, #11121a); --focus: light-dark(#23242b, #dfe2ee);
+  --accent: light-dark(#cf3d14, #ff6a3d); --on-accent: light-dark(#ffffff, #1a0d07);
+  --go: light-dark(#157347, #4ade9b); --pin: light-dark(#8a6100, #f5b93a); --new: light-dark(#2757c4, #7aa8ff);
+  --edit: var(--go); --danger: light-dark(#a83527, #ff8f7d); --mark: light-dark(#ffe08a, #6b5210);
+  --btn-bg: var(--accent); --btn-fg: var(--on-accent); --role: var(--mute); --target: 30px;
+  --lift: 0 10px 28px -18px rgb(0 0 0 / .6);
+  scrollbar-color: var(--strong-border) transparent; accent-color: var(--accent);
 }
+[data-role="approved"] { --role: var(--go); } [data-role="draft"] { --role: var(--pin); } [data-role="idea"] { --role: var(--new); }
 @media (pointer: coarse) { :root { --target: 44px; } }
 * { box-sizing: border-box; }
-::selection { background: var(--mark); color: var(--strong-txt); }
+::selection { background: color-mix(in oklab, var(--accent) 38%, transparent); color: var(--strong-txt); }
 html { scroll-padding-top: 76px; -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--canvas); color: var(--txt); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; }
 button, textarea, select { font: inherit; color: inherit; }
 button, select { min-block-size: var(--target); cursor: pointer; }
-textarea, input { caret-color: var(--pin); }
+textarea, input { caret-color: var(--accent); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 a { color: inherit; }
 .top { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px max(20px, env(safe-area-inset-right)) 12px max(20px, env(safe-area-inset-left)); background: var(--canvas); border-bottom: 1px solid var(--hair); }
 .top h1 { flex: 1 1 240px; min-inline-size: 0; margin: 0; font-size: 19px; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; color: var(--strong-txt); text-wrap: balance; }
 .top.home { position: static; padding-block: 34px 6px; border-bottom: 0; align-items: baseline; }
-.top.home h1 { font-size: 34px; line-height: 1.1; font-weight: 750; letter-spacing: -0.03em; }
+.top.home h1 { display: flex; align-items: center; gap: 12px; font-size: 34px; line-height: 1.1; font-weight: 750; letter-spacing: -0.03em; }
+.top.home h1::before { content: ""; flex: none; inline-size: 14px; block-size: 14px; margin-inline-start: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 5px color-mix(in oklab, var(--accent) 22%, transparent); }
 .top.home, .list { max-inline-size: 760px; margin-inline: auto; }
 .back { display: inline-flex; align-items: center; gap: 7px; min-block-size: var(--target); padding: 0 4px; color: var(--mute); text-decoration: none; font-size: 13.5px; font-weight: 600; }
 .back::before { content: ""; inline-size: 7px; block-size: 7px; border-inline-start: 2px solid; border-block-end: 2px solid; rotate: 45deg; }
 .back:hover { color: var(--strong-txt); }
 .meta { color: var(--mute); font-size: 13px; white-space: nowrap; font-variant-numeric: tabular-nums; }
-select { padding: 3px 10px; border: 1px solid var(--strong-border); border-radius: 999px; background: var(--card); font-size: 13px; font-weight: 650; }
-select:hover { border-color: var(--mute); }
+select { padding: 3px 10px; border: 1px solid color-mix(in oklab, var(--role) 55%, transparent); border-radius: 999px; background: color-mix(in oklab, var(--role) 14%, var(--card)); color: var(--role); font-size: 13px; font-weight: 700; }
+select:hover { border-color: var(--role); }
+select option { color: var(--txt); background: var(--card); }
 .wrap { display: grid; grid-template-columns: minmax(0, 1fr) 360px; }
 .doc { min-inline-size: 0; inline-size: 100%; max-inline-size: 800px; margin: 0 auto; padding: 20px 24px 120px; }
 .h { margin: 44px 0 10px; padding: 16px 12px 0 26px; border-top: 1px solid var(--hair); font-size: 12px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mute); }
 .h:first-child { margin-top: 4px; padding-top: 0; border-top: 0; }
+.h.readh { color: var(--accent); }
 .line { position: relative; margin: 2px 0; padding: 7px 12px 7px 26px; border-radius: 9px; cursor: pointer; }
 .line:hover { background: var(--soft); }
-.line.active { background: var(--card); box-shadow: 0 0 0 1px var(--strong-border), var(--lift); cursor: default; }
+.read:hover { background: color-mix(in oklab, var(--accent) 9%, transparent); }
+.line.active, .read.active { background: var(--card); box-shadow: 0 0 0 1.5px var(--accent), var(--lift); cursor: default; }
+.line.noted:not(.active) { background: color-mix(in oklab, var(--pin) 8%, transparent); }
+.line.edited:not(.active) { background: color-mix(in oklab, var(--edit) 8%, transparent); }
 .t { margin: 0; font-size: 14px; color: var(--mute); text-wrap: pretty; white-space: pre-wrap; }
 .line:hover .t, .line.active .t { color: var(--txt); }
 .read .t, .read:hover .t, .read.active .t { font-size: 22px; line-height: 1.42; font-weight: 500; letter-spacing: -0.012em; color: var(--strong-txt); }
@@ -592,7 +600,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 1px
 .tag.edit { color: var(--edit); } .tag.new { color: var(--new); } .tag.note { color: var(--pin); }
 .acts, .foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
 .btn { padding: 5px 14px; border: 1px solid var(--strong-border); border-radius: 9px; background: var(--card); font-size: 13.5px; font-weight: 600; }
-.btn:hover { border-color: var(--mute); box-shadow: var(--lift); }
+.btn:hover { border-color: var(--accent); box-shadow: var(--lift); }
 .btn:active { scale: 0.97; }
 .btn:disabled { opacity: .55; cursor: default; box-shadow: none; scale: none; }
 .btn.primary { border-color: var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); font-weight: 700; }
@@ -602,9 +610,9 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 1px
 .push { margin-inline-start: auto; }
 textarea { display: block; inline-size: 100%; padding: 10px 12px; border: 1px solid var(--strong-border); border-radius: 9px; background: var(--input-bg); font-size: 16px; line-height: 1.5; resize: vertical; field-sizing: content; min-block-size: 3lh; }
 textarea::placeholder, input::placeholder { color: var(--mute); opacity: 1; }
-textarea:focus { outline: 2px solid var(--pin); outline-offset: 0; border-color: transparent; }
+textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
 .box { margin-top: 10px; }
-.q { margin: 0 0 8px; padding: 6px 10px; border-radius: 7px; background: var(--soft); color: var(--txt); font-size: 13px; }
+.q { margin: 0 0 8px; padding: 6px 10px; border-radius: 7px; background: color-mix(in oklab, var(--pin) 14%, transparent); color: var(--txt); font-size: 13px; }
 .hint { color: var(--mute); font-size: 12px; }
 .rail { position: sticky; top: var(--top, 56px); align-self: start; display: flex; flex-direction: column; block-size: calc(100dvh - var(--top, 56px)); border-inline-start: 1px solid var(--hair); background: var(--rail); }
 .rail-scroll { flex: 1; min-block-size: 0; overflow-y: auto; padding: 20px 14px; }
@@ -612,19 +620,21 @@ textarea:focus { outline: 2px solid var(--pin); outline-offset: 0; border-color:
 .section { margin: 0; font-size: 17px; font-weight: 700; letter-spacing: -0.01em; color: var(--strong-txt); }
 .cards { display: grid; gap: 8px; margin-bottom: 14px; }
 .empty { margin: 0; padding: 4px; color: var(--mute); font-size: 13.5px; }
-.card { padding: 11px 13px; border: 1px solid var(--card-border); border-radius: 11px; background: var(--card); cursor: pointer; }
-.card:hover { border-color: var(--strong-border); box-shadow: var(--lift); }
-.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: var(--mute); font-size: 12px; font-weight: 650; }
-.card-head::before { content: ""; flex: none; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--pin); }
-.card.e .card-head::before { background: var(--edit); }
+.card { --c: var(--pin); padding: 11px 13px; border: 1px solid color-mix(in oklab, var(--c) 30%, var(--card-border)); border-radius: 11px; background: color-mix(in oklab, var(--c) 9%, var(--card)); cursor: pointer; }
+.card.e { --c: var(--edit); }
+.card:hover { border-color: var(--c); box-shadow: var(--lift); }
+.card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: var(--c); font-size: 12px; font-weight: 650; }
+.card-head::before { content: ""; flex: none; inline-size: 8px; block-size: 8px; border-radius: 50%; background: var(--c); }
+.card-head .btn { color: var(--mute); }
 .card p { margin: 0; font-size: 14px; white-space: pre-wrap; color: var(--strong-txt); }
 .card .was { color: var(--mute); text-decoration: line-through; }
 .card .ctx { color: var(--mute); font-size: 12.5px; margin-bottom: 5px; }
 .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 14px; border-top: 1px solid var(--hair); background: var(--rail); }
 .actions .btn { inline-size: 100%; padding: 11px 12px; border-radius: 11px; font-size: 15px; }
 .copy { position: relative; display: block; }
-.tip { position: absolute; inset-block-end: calc(100% + 8px); inset-inline-start: 50%; translate: -50% 4px; padding: 4px 10px; border-radius: 7px; background: var(--btn-bg); color: var(--btn-fg); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0; pointer-events: none; }
+.tip { position: absolute; inset-block-end: calc(100% + 8px); inset-inline-start: 50%; translate: -50% 4px; padding: 4px 10px; border-radius: 7px; background: var(--strong-txt); color: var(--canvas); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; white-space: nowrap; opacity: 0; pointer-events: none; }
 [data-copied] + .tip, [data-failed] + .tip { opacity: 1; translate: -50% 0; }
+#count:not(:empty) { padding: 0 8px; border-radius: 999px; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 700; }
 #status { grid-column: 1 / -1; min-block-size: 1lh; color: var(--mute); font-size: 12.5px; text-align: center; }
 #selpop { position: fixed; inset: auto; margin: 0; padding: 0; border: 0; background: none; overflow: visible; }
 #selpop { display: none; }
@@ -653,29 +663,32 @@ textarea:focus { outline: 2px solid var(--pin); outline-offset: 0; border-color:
 }
 /* the list page */
 .new { margin: 14px 0 0; }
-.new > summary { display: inline-flex; align-items: center; list-style: none; }
+.new > summary { display: inline-flex; align-items: center; list-style: none; border-color: color-mix(in oklab, var(--accent) 60%, transparent); color: var(--accent); }
 .new > summary::-webkit-details-marker { display: none; }
 .new form { display: grid; gap: 6px; margin-top: 12px; padding: 16px; border: 1px solid var(--card-border); border-radius: 13px; background: var(--card); }
 .new label { color: var(--mute); font-size: 12.5px; font-weight: 650; }
 .new label + * { margin-bottom: 6px; }
 .new input { inline-size: 100%; min-block-size: var(--target); padding: 9px 12px; border: 1px solid var(--strong-border); border-radius: 9px; background: var(--input-bg); font: inherit; font-size: 16px; color: inherit; }
-.new input:focus { outline: 2px solid var(--pin); outline-offset: 0; border-color: transparent; }
+.new input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
 .new textarea { min-block-size: 6lh; }
 .list { padding: 4px 20px 64px; }
 .group > summary, .group-head { display: flex; align-items: baseline; gap: 9px; margin: 34px 0 10px; padding: 0; font-size: 20px; line-height: 1.25; font-weight: 700; letter-spacing: -0.015em; color: var(--strong-txt); }
 .group > summary { cursor: pointer; min-block-size: var(--target); align-items: center; list-style: none; color: var(--mute); }
+.group-head::before, .group > summary::before { content: ""; flex: none; align-self: center; inline-size: 10px; block-size: 10px; border-radius: 50%; background: var(--role); }
 .group > summary::-webkit-details-marker { display: none; }
 .group > summary:hover, .group[open] > summary { color: var(--strong-txt); }
 .group > summary::after { content: ""; flex: none; inline-size: 8px; block-size: 8px; margin-inline-start: auto; margin-inline-end: 6px; border-inline-end: 2px solid; border-block-end: 2px solid; rotate: -45deg; }
 .group[open] > summary::after { rotate: 45deg; }
-.n { color: var(--mute); font-size: 14px; font-weight: 600; letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.n { align-self: center; padding: 1px 9px; border-radius: 999px; background: color-mix(in oklab, var(--role) 18%, transparent); color: var(--role); font-size: 13px; font-weight: 700; letter-spacing: 0; font-variant-numeric: tabular-nums; }
 .item { display: flex; align-items: center; gap: 12px; margin: 8px 0; padding: 6px 10px 6px 18px; border: 1px solid var(--card-border); border-radius: 13px; background: var(--card); }
-.item:hover { border-color: var(--strong-border); box-shadow: var(--lift); }
+.item:hover { border-color: var(--role); box-shadow: var(--lift); }
+[data-role="approved"] .item .btn { border-color: var(--accent); background: var(--accent); color: var(--on-accent); font-weight: 700; }
 .item a { flex: 1; min-inline-size: 0; padding: 10px 0; text-decoration: none; }
 .item .title { display: block; color: var(--strong-txt); font-size: 17px; line-height: 1.3; font-weight: 650; letter-spacing: -0.01em; text-wrap: pretty; }
 .item .sub { display: block; margin-top: 2px; color: var(--mute); font-size: 13px; font-variant-numeric: tabular-nums; }
 .item .sub span { white-space: nowrap; }
-.item .waiting { padding: 1px 7px; border-radius: 999px; background: var(--mark); color: var(--strong-txt); font-weight: 650; }
+.item .sub span + span:not(.waiting)::before { content: "·"; margin-inline: .45em; }
+.item .waiting { margin-inline-start: .6em; padding: 1px 7px; border-radius: 999px; background: var(--mark); color: var(--strong-txt); font-weight: 650; }
 .item .copy { flex: none; }
 .item .tip { inset-inline-start: auto; inset-inline-end: 0; translate: 0 4px; }
 .item [data-copied] + .tip, .item [data-failed] + .tip { translate: none; }
@@ -685,6 +698,7 @@ textarea:focus { outline: 2px solid var(--pin); outline-offset: 0; border-color:
   .group > summary, .group-head { margin-top: 28px; font-size: 18px; }
   .item { gap: 8px; padding: 4px 8px 4px 14px; }
   .item .sub { font-size: 12.5px; }
+  .item .upd:not(:first-child) { display: none; }
   .item .btn { padding-inline: 11px; }
 }
 """
@@ -850,7 +864,7 @@ function setActive(i, m, q) {
 function renderDoc() {
   const doc = $("doc"); doc.textContent = "";
   for (const l of LINES) {
-    if (l.kind === "h") doc.append(el("h2", "h", l.text));
+    if (l.kind === "h") doc.append(el("h2", "h" + (l.text.replace(/[#*\\\s]/g, "").toLowerCase() === DATA.read ? " readh" : ""), l.text));
     else if (l.kind === "line") doc.append(lineEl(l));
   }
 }
@@ -969,7 +983,7 @@ $("send").onclick = async () => {
   }
 };
 $("state").onchange = async () => {
-  try { await post("/api/status", { id: DATA.id, status: $("state").value }); if (!busy()) reload(); else say("Status saved."); }
+  try { await post("/api/status", { id: DATA.id, status: $("state").value }); $("state").dataset.role = DATA.roles[$("state").value] || "other"; if (!busy()) reload(); else say("Status saved."); }
   catch { say("Couldn't save the status."); $("state").value = DATA.status; }
 };
 
@@ -1037,7 +1051,7 @@ SCRIPT_PAGE = HEAD + """<body>
     <a class="back" href="/">Scripts</a>
     <h1>__H1__</h1>
     <span class="meta">__META__</span>
-    <select id="state" aria-label="Status">__OPTIONS__</select>
+    <select id="state" aria-label="Status" data-role="__ROLE__">__OPTIONS__</select>
   </header>
   <div class="wrap">
     <main class="doc" id="doc"></main>
@@ -1083,6 +1097,11 @@ LIST_PAGE = HEAD + """<body>
 </body></html>"""
 
 
+def role(status):
+    """The color role of a status: approved (green), draft (amber), idea (blue), or other (neutral)."""
+    return {APPROVED: "approved", DRAFT: "draft", IDEA: "idea"}.get(status, "other")
+
+
 def js_data(obj):
     """JSON that is safe inside a <script> block: no '<' can close the tag or open a comment."""
     return json.dumps(obj, ensure_ascii=False).replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
@@ -1094,12 +1113,13 @@ def fill_page(page, **parts):
 
 
 def script_page(s, token, nonce):
-    data = {"id": s.id, "title": s.title, "status": s.status, "version": s.version, "token": token, "hooks": HOOKS_KEY, "lines": layout(s.lines)}
+    data = {"id": s.id, "title": s.title, "status": s.status, "version": s.version, "token": token, "hooks": HOOKS_KEY, "read": READ_KEY,
+            "roles": {st: role(st) for st in STATUSES}, "lines": layout(s.lines)}
     meta = f"{s.words} words · about {duration(s.words)}" if s.words else "No read yet"
     options = "".join(f'<option value="{st}"{" selected" if st == s.status else ""}>{html.escape(STATUS_LABEL[st])}</option>'
                       for st in STATUSES)
     return fill_page(SCRIPT_PAGE, TITLE=html.escape(s.title), CSS=CSS, NONCE=nonce, H1=html.escape(s.title), META=meta,
-                     OPTIONS=options, JS=SHARED_JS + SCRIPT_JS, DATA=js_data(data))
+                     OPTIONS=options, ROLE=role(s.status), JS=SHARED_JS + SCRIPT_JS, DATA=js_data(data))
 
 
 def list_version(desk):
@@ -1124,8 +1144,8 @@ def list_page(desk, token, nonce):
             sub = [f"{s.words} words", f"about {duration(s.words)}"] if full else []
             if s.meta.get("updated"):
                 sub.append("updated " + html.escape(short_date(s.meta["updated"])))
-            sub = [f"<span>{x}</span>" for x in sub]
-            note = f' · <span class="waiting">{waiting[s.id]} sent, waiting on the agent</span>' if s.id in waiting else ""
+            sub = ['<span class="upd">' + x + "</span>" if x.startswith("updated ") else f"<span>{x}</span>" for x in sub]
+            note = f'<span class="waiting">{waiting[s.id]} sent, waiting on the agent</span>' if s.id in waiting else ""
             copy = ""
             if full:
                 reads[s.id] = {"text": s.teleprompter, "label": s.copied}
@@ -1133,12 +1153,12 @@ def list_page(desk, token, nonce):
                         f'aria-label="Copy the read for {html.escape(s.title, quote=True)}">Copy read</button>'
                         f'<span class="tip" role="status"></span></span>')
             items.append(f'<div class="item"><a href="/s/{s.id}"><span class="title">{html.escape(s.title)}</span>'
-                         f'<span class="sub">{" · ".join(sub)}{note}</span></a>{copy}</div>')
+                         f'<span class="sub">{"".join(sub)}{note}</span></a>{copy}</div>')
         head = f'{html.escape(STATUS_LABEL[st])} <span class="n">{len(rows)}</span>'
         if st in CFG["collapsed"]:
-            groups.append(f'<details class="group"><summary>{head}</summary>{"".join(items)}</details>')
+            groups.append(f'<details class="group" data-role="{role(st)}"><summary>{head}</summary>{"".join(items)}</details>')
         else:
-            groups.append(f'<section><h2 class="group-head">{head}</h2>{"".join(items)}</section>')
+            groups.append(f'<section data-role="{role(st)}"><h2 class="group-head">{head}</h2>{"".join(items)}</section>')
     if not groups:
         groups = ['<p class="empty">No scripts yet. The agent adds one with script_review.py new.</p>']
     return fill_page(LIST_PAGE, TITLE=html.escape(str(CFG["title"])), H1=html.escape(str(CFG["title"])), CSS=CSS, NONCE=nonce, META=f"{len(scripts)} scripts",
